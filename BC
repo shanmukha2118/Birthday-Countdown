@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Countdown</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #fce4ec;
+        }
+        h1 {
+            color: #d81b60;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #d81b60;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #countdown {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Birthday Countdown 🎂</h1>
+    <p>Enter your birthdate:</p>
+    <input type="date" id="birthdate">
+    <button onclick="startCountdown()">Start Countdown</button>
+    <div id="countdown"></div>
+
+    <script>
+        function startCountdown() {
+            let birthdate = document.getElementById('birthdate').value;
+            if (!birthdate) {
+                alert("Please enter your birthdate!");
+                return;
+            }
+            
+            let now = new Date();
+            let birthday = new Date(birthdate);
+            birthday.setFullYear(now.getFullYear());
+            if (birthday < now) {
+                birthday.setFullYear(now.getFullYear() + 1);
+            }
+
+            function updateCountdown() {
+                let now = new Date();
+                let diff = birthday - now;
+                let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                document.getElementById('countdown').innerHTML =
+                    `🎉 ${days} Days, ${hours} Hours, ${minutes} Minutes, ${seconds} Seconds left until your birthday! 🎂`;
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+    </script>
+</body>
+</html>
